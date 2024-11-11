@@ -13,4 +13,10 @@ app.use(express.json());
 const exampleRoutes = require('./routes/exampleRoutes');
 app.use('/api/example', exampleRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+    res.send('Welcome to the Backend Server!');
+});
+
+
 module.exports = app;
