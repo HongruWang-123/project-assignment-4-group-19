@@ -35,3 +35,26 @@ exports.addToCart = async (req, res) => {
       res.status(500).json({ message: 'Error adding to cart', error });
     }
   };
+
+// Delete items in shopping cart
+exports.removeFromCart = async (req, res) => {
+    try {
+      const { userId, productId } = req.body;
+  
+      const cart = await Cart.findOne({ userId });
+      if (!cart) {
+        return res.status(404).json({ message: 'Cart not found' });
+      }
+  
+      cart.items = cart.items.filter((item) => !item.productId.equals(productId));
+  
+      cart.subtotal = cart.items.reduce((acc, item) => {
+        return acc + item.quantity * item.price;
+      }, 0);
+  
+      await cart.save();
+      res.status(200).json(cart);
+    } catch (error) {
+      res.status(500).json({ message: 'Error removing item from cart', error });
+    }
+};
