@@ -18,8 +18,16 @@ router.get('/google', passport.authenticate("google",{
 }));
 
 //callback route for google, exchange code, access profile infomation
-router.get('/google/callback',passport.authenticate("google"),(req,res)=>{
+router.get('/google/callback',passport.authenticate("google", {failureRedirect: "/"}),(req,res)=>{
+    // res.send(req.user);
     res.send("you reached the callback URL");
-})
+    // res.redirect('/profile');
+});
+
+router.get('/profile',(req,res)=>{
+    res.send('Welcome');
+});
+
+
 
 module.exports = router;
