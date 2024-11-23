@@ -4,8 +4,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('./config/passportConfig');
 const authRoutes = require('./routes/authRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 const passport = require('passport');
 const session = require('express-session');
+const path = require('path');
 
 dotenv.config();
 
@@ -50,6 +52,7 @@ app.get('/', (req, res) => {
 
 // Auth route
 app.use('/auth',authRoutes);
+app.use('/profile',profileRoutes);
 app.get('/auth', (req, res) => {
     res.render('home');
 });

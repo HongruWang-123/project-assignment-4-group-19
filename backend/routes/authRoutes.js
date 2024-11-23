@@ -1,33 +1,22 @@
 const express = require('express');
 const router = require('express').Router();
 const passport = require('passport');
+const authController = require('../controllers/authController');
 //auth login
-router.get('/login',(req,res)=>{
-    res.render('login');
-})
+router.get('/login', authController.login);
 
 //auth logout
-router.get('/logout',(req,res)=>{
-    //handle with passport
-    res.send('logging out');
-})
+router.get('/logout', authController.logout);
 
 //auth with google
-router.get('/google', passport.authenticate("google",{
-    scope:['profile','email']
-}));
+router.get('/google', authController.googleAuth);
 
-//callback route for google, exchange code, access profile infomation
-router.get('/google/callback',passport.authenticate("google", {failureRedirect: "/"}),(req,res)=>{
-    // res.send(req.user);
-    res.send("you reached the callback URL");
-    // res.redirect('/profile');
-});
-
-router.get('/profile',(req,res)=>{
-    res.send('Welcome');
+//callback route for google
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+    res.redirect('http://localhost:4200/profile');  // Redirect to frontend profile page
 });
 
 
+router.get('/profile', authController.getProfile);
 
 module.exports = router;
