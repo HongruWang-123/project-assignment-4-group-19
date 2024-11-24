@@ -12,11 +12,13 @@ router.get('/logout', authController.logout);
 router.get('/google', authController.googleAuth);
 
 //callback route for google
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-    res.redirect('http://localhost:4200/profile');  // Redirect to frontend profile page
-});
+router.get('/google/callback',passport.authenticate('google', { failureRedirect: '/' }), authController.googleCallback);
 
 
-router.get('/profile', authController.getProfile);
+// Route to return the logged-in user's information
+router.get('/user', authController.getProfile);
+
+
+// router.get('/profile', authController.getProfile);
 
 module.exports = router;

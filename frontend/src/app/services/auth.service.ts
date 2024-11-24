@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-    constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:5000/api/auth'; // Backend API endpoint
 
-    // getData(): Observable<any> {
-    //     return this.http.get('/api/data'); // Match the backend API route
-    // }
+  constructor(private http: HttpClient) {}
+
+  // Fetch user data from backend
+  getUserData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user`, { withCredentials: true });
+  }
 }

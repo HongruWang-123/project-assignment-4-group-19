@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<form [formGroup]="profileForm">
+  <label>
+    Given Name:
+    <input type="text" formControlName="givenName" />
+  </label>
+  <label>
+    Family Name:
+    <input type="text" formControlName="familyName" />
+  </label>
+  <label>
+    Email:
+    <input type="email" formControlName="email" />
+  </label>
+  <button type="submit">Save</button>
+</form>

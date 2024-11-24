@@ -4,7 +4,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('./config/passportConfig');
 const authRoutes = require('./routes/authRoutes');
-const profileRoutes = require('./routes/profileRoutes');
 const passport = require('passport');
 const session = require('express-session');
 const path = require('path');
@@ -38,7 +37,10 @@ mongoose.connect(USER_MONGODB_URI)
 .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
 });
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials: true
+}));
 app.use(express.json());
 
 // Example route
@@ -51,11 +53,7 @@ app.get('/', (req, res) => {
 });
 
 // Auth route
-app.use('/auth',authRoutes);
-app.use('/profile',profileRoutes);
-app.get('/auth', (req, res) => {
-    res.render('home');
-});
+app.use('/api/auth',authRoutes);
 
 
 module.exports = app;

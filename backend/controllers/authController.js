@@ -20,6 +20,9 @@ const googleAuth = passport.authenticate("google", {
     scope: ['profile', 'email']
 });
 
+const googleCallback = (req, res) => {
+    res.redirect('http://localhost:4200/profile');  // Correct usage
+};
 
 // Get user profile (protected route)
 const getProfile = (req, res) => {
@@ -34,5 +37,6 @@ module.exports = {
     login,
     logout,
     googleAuth,
+    googleCallback,
     getProfile,
 };
