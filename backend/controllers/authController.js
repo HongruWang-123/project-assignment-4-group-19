@@ -11,17 +11,51 @@ const logout = (req, res, next) => {
         if (err) {
             return next(err);
         }
-        res.json({ message: "Logged out successfully." });
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Failed to destroy session:', err);
+                return next(err);
+            }
+
+            // Clear the cookie
+            res.clearCookie('connect.sid', {
+                path: '/',
+                httpOnly: true,
+                secure: true
+            });
+
+            // Send response
+            res.status(200).json({ message: 'Logged out successfully.' });
+        });
     });
 };
+
 
 // Authenticate user with Google
 const googleAuth = passport.authenticate("google", {
     scope: ['profile', 'email']
 });
 
+
+const admins = ['duxyfdm@gmail.com'];
 const googleCallback = (req, res) => {
-    res.redirect('http://localhost:4200/profile');  // Correct usage
+    const userEmail = req.user.email;
+    if (userEmail && admins.includes(userEmail)) { //if is admin
+        res.redirect('http://localhost:4200/adminPage');
+    } 
+    else {// if is not admin
+        res.redirect('http://localhost:4200/dashboard');
+    }
+};
+
+// User dashboard handler
+const dashboard = (req, res) => {
+    res.send('Welcome to the user dashboard!');
+};
+
+// Admin dashboard handler
+const adminPage = (req, res) => {
+    res.send('Welcome to the admin dashboard!');
 };
 
 // Get user profile (protected route)
@@ -39,4 +73,6 @@ module.exports = {
     googleAuth,
     googleCallback,
     getProfile,
+    dashboard,
+    adminPage
 };

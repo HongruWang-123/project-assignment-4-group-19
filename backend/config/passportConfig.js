@@ -11,21 +11,39 @@ passport.use(
         callbackURL: '/api/auth/google/callback'
     },(accessToken, refreshToken, profile, done)=>{
         console.log('passport callback function is fired');
-        console.log(profile);
          // check if user already exists in our db
         User.findOne({googleId: profile.id}).then((currentUser) => {
             if(currentUser){// if the user with us in the past
-                console.log('user is: ', currentUser);
                 done(null, currentUser);
             } 
             else {// create user if not
-                new User({
-                    googleId: profile.id,
-                    username: profile.displayName
-                }).save().then((newUser) => {
-                    console.log('created new user: ', newUser);
-                    done(null, newUser);
-                });
+                if(profile.emails[0].value === 'duxyfdm@gmail.com'){// set admin account
+                    new User({
+                        googleId: profile.id,
+                        familyName: profile.name.familyName,
+                        givenName: profile.name.givenName,
+                        email: profile.emails && profile.emails[0] ? profile.emails[0].value : "",
+                        address: '',
+                        paymentMethod:'',
+                        role: 'admin'
+                            
+                    }).save().then((newUser) => {
+                        done(null, newUser);
+                    });
+                }
+                else{
+                    new User({
+                        googleId: profile.id,
+                        familyName: profile.name.familyName,
+                        givenName: profile.name.givenName,
+                        email: profile.emails && profile.emails[0] ? profile.emails[0].value : "",
+                        address: '',
+                        paymentMethod:''
+
+                    }).save().then((newUser) => {
+                        done(null, newUser);
+                    });
+                }
             }
         });
     })

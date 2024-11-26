@@ -1,7 +1,7 @@
 import { Component,OnInit  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup,FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { first } from 'rxjs';
 
 @Component({
@@ -19,20 +19,22 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       givenName: [''],
       familyName: [''],
-      email: ['']
+      email: [''],
+      address: [''],
+      paymentMethod: [''],
     });
   }
 
   ngOnInit(): void {
+    this.data = this.authService.getUser();
 
-    this.authService.getUserData().subscribe((response)=>{
-      console.log(response);
-      this.data = response;
-      this.profileForm.patchValue({
-        givenName: this.data.user.givenName,
-        familyName: this.data.user.familyName,
-        email: this.data.user.email
-      });
+    this.profileForm.patchValue({
+      givenName: this.data.user.givenName,
+      familyName: this.data.user.familyName,
+      email: this.data.user.email,
+      address: this.data.user.address,
+      paymentMethod: this.data.user.paymentMethod
     });
+    
   }
 }
