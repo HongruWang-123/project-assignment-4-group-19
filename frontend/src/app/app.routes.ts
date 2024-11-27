@@ -5,8 +5,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
-// import { AuthGuard } from './services/auth.guard';
-// import { AdminGuard } from './services/admin.guard';
+// import { AuthGuard } from './services/auth.userguard';
+// import { AdminGuard } from './services/admin.userguard';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },

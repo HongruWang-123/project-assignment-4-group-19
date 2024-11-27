@@ -1,4 +1,5 @@
-<form [formGroup]="profileForm">
+<app-nav></app-nav>
+<form [formGroup]="profileForm" (ngSubmit)="onSave()">
   <label>
     Given Name:
     <input type="text" formControlName="givenName" />

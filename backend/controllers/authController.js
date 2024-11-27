@@ -1,4 +1,5 @@
 const passport = require('passport');
+const User = require('../models/userModel');
 
 // Render login page or send a message
 const login = (req, res) => {
@@ -59,12 +60,33 @@ const adminPage = (req, res) => {
 };
 
 // Get user profile (protected route)
-const getProfile = (req, res) => {
+const getProfile = (req,res) => {
     if (req.isAuthenticated()) {
         res.json({ user: req.user });
     } else {
         res.status(401).json({ error: "Unauthorized" });
     }
+};
+
+
+const updateProfile = async (req,res) =>{
+    try {
+        const userId = req.user.id;
+        // const {} = req.body;
+        console.log(userId);
+        const { familyName, givenName, address, paymentMethod } = req.body;
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { familyName, givenName, address, paymentMethod },
+            { new: true, runValidators: true }
+        );
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(updatedUser);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
 };
 
 module.exports = {
@@ -73,6 +95,7 @@ module.exports = {
     googleAuth,
     googleCallback,
     getProfile,
+    updateProfile,
     dashboard,
-    adminPage
+    adminPage,
 };

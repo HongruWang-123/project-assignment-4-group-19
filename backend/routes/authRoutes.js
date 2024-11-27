@@ -19,6 +19,8 @@ router.get('/google/callback',passport.authenticate('google', { failureRedirect:
 // Route to return the logged-in user's information
 router.get('/user', authController.getProfile);
 
+router.put('/user', authMiddleware.isAuthenticated, authController.updateProfile);
+
 //protected route
 router.get('/dashboard', authMiddleware.isAuthenticated, authController.dashboard);
 router.get('/adminPage', authMiddleware.isAuthenticated, authMiddleware.isAdmin, authController.adminPage);

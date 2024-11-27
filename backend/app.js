@@ -17,8 +17,8 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: false, // Avoid resaving unchanged sessions
-        saveUninitialized: true, // Save uninitialized sessions
-        cookie: { secure: false }, // Set `true` if using HTTPS
+        saveUninitialized: false, // Save uninitialized sessions
+        cookie: { httpOnly: true },
     })
 );
 
