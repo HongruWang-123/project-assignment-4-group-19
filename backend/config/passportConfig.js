@@ -17,7 +17,7 @@ passport.use(
                 done(null, currentUser);
             } 
             else {// create user if not
-                if(profile.emails[0].value === 'duxyfdm@gmail.com'){// set admin account
+                if(profile.id === '105718660081689900329'){// set initial admin account
                     new User({
                         googleId: profile.id,
                         familyName: profile.name.familyName,

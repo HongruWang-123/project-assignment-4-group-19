@@ -1,9 +1,15 @@
 const passport = require('passport');
 const User = require('../models/userModel');
 
-// Render login page or send a message
+
 const login = (req, res) => {
-    res.json({ message: "Please log in using Google." });
+    if (req.isAuthenticated()) {
+        res.status(200).json({
+            user: req.user
+        });
+    } else {
+        res.status(401).json({ message: 'no' });
+    }
 };
 
 // Logout the user and clear session
@@ -38,10 +44,10 @@ const googleAuth = passport.authenticate("google", {
 });
 
 
-const admins = ['duxyfdm@gmail.com'];
+const admins = ['105718660081689900329'];
 const googleCallback = (req, res) => {
-    const userEmail = req.user.email;
-    if (userEmail && admins.includes(userEmail)) { //if is admin
+    const googleID = req.user.googleId;
+    if (googleID && admins.includes(googleID)) { //if is admin
         res.redirect('http://localhost:4200/adminPage');
     } 
     else {// if is not admin
@@ -72,8 +78,6 @@ const getProfile = (req,res) => {
 const updateProfile = async (req,res) =>{
     try {
         const userId = req.user.id;
-        // const {} = req.body;
-        console.log(userId);
         const { familyName, givenName, address, paymentMethod } = req.body;
         const updatedUser = await User.findByIdAndUpdate(
             userId,

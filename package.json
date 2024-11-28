@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@angular/cli": "^18.2.11",
+    "bootstrap": "^5.3.3",
     "ioredis": "^5.4.1",
     "mongoose": "^8.8.2"
   }

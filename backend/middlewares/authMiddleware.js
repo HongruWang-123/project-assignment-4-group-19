@@ -1,4 +1,4 @@
-const admins = ['duxyfdm@gmail.com']; 
+const admins = ['105718660081689900329']; 
 
 //Check if the user is logged in
 const isAuthenticated = (req, res, next) => {
@@ -10,8 +10,8 @@ const isAuthenticated = (req, res, next) => {
 
 //Check if the user is an admin
 const isAdmin = (req, res, next) => {
-    const userEmail = req.user?.email;
-    if (userEmail && admins.includes(userEmail)) {
+    const googleID = req.user?.email;
+    if (googleID && admins.includes(googleID)) {
         return next();
     }
     res.status(403).send('Forbidden: You do not have access to this page.');

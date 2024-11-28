@@ -1,0 +1,97 @@
+/* Overall Page Styling */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f9f9f9; /* Light background for better contrast */
+    font-family: Arial, sans-serif; /* Clean font */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form Container Styling */
+.form-container {
+    background-color: #fff; /* White background for the form */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Form Heading */
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Label Styling */
+label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Input and Select Styling */
+input[type="text"], 
+input[type="email"], 
+input[type="address"],
+select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f7f7f7; /* Slightly lighter input background */
+    transition: border-color 0.3s ease;
+}
+
+input:focus, 
+select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Read-Only Input Styling */
+input[readonly] {
+    background-color: #e9ecef; /* Different background for read-only fields */
+    cursor: not-allowed;
+}
+
+/* Submit Button Styling */
+.submit-button {
+    background-color: #007bff; /* Primary blue */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+    }
+}
+

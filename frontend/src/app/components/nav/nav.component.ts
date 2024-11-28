@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewEncapsulation  } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [],
   templateUrl: './nav.component.html',
-  styleUrl: './nav.component.css'
+  styleUrl: './nav.component.css',
 })
 
 export class NavComponent {
@@ -16,6 +16,14 @@ export class NavComponent {
   //View Profile
   navigateToProfile() {
     this.router.navigate(['/profile']); 
+  }
+  //View Dashboard
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']); 
+  }
+  //View Admin Dashboard
+  navigateToAdmin() {
+    this.router.navigate(['/adminPage']); 
   }
 
   //logout

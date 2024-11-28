@@ -1,24 +1,46 @@
 <app-nav></app-nav>
-<form [formGroup]="profileForm" (ngSubmit)="onSave()">
-  <label>
-    Given Name:
-    <input type="text" formControlName="givenName" />
-  </label>
-  <label>
-    Family Name:
-    <input type="text" formControlName="familyName" />
-  </label>
-  <label>
-    Email:
-    <input type="email" formControlName="email" />
-  </label>
-  <label>
-    Address:
-    <input type="address" formControlName="address" />
-  </label>
-  <label>
-    Payment Method:
-    <input type="paymentMethod" formControlName="paymentMethod" />
-  </label>
-  <button type="submit">Save</button>
-</form>
+<div class="page-container">
+  <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="form-container">
+    <label>
+      Given Name:
+      <input type="text" formControlName="givenName" />
+      <div *ngIf="profileForm.get('givenName')?.touched && profileForm.get('givenName')?.invalid">
+        <small *ngIf="profileForm.get('givenName')?.errors?.['required']">Given Name is required.</small>
+      </div>
+    </label>
+    <label>
+      Family Name:
+      <input type="text" formControlName="familyName" />
+      <div *ngIf="profileForm.get('familyName')?.touched && profileForm.get('familyName')?.invalid">
+        <small *ngIf="profileForm.get('familyName')?.errors?.['required']">Family Name is required.</small>
+      </div>
+    </label>
+    <label>
+      Email:
+      <input type="email" formControlName="email"/>
+      <div *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid">
+        <small *ngIf="profileForm.get('email')?.errors?.['required']">Email is required.</small>
+        <small *ngIf="profileForm.get('email')?.errors?.['email']">Enter a valid email address.</small>
+      </div>
+    </label>
+    <label>
+      Address:
+      <input type="address" formControlName="address" />
+      <div *ngIf="profileForm.get('address')?.touched && profileForm.get('address')?.invalid">
+        <small *ngIf="profileForm.get('address')?.errors?.['required']">Address is required.</small>
+      </div>
+    </label>
+    <label>
+      Payment Method:
+      <select formControlName="paymentMethod">
+        <option value="Debit">Debit</option>
+        <option value="Credit">Credit</option>
+        <option value="PayPal">PayPal</option>
+      </select>
+      <div *ngIf="profileForm.get('paymentMethod')?.touched && profileForm.get('paymentMethod')?.invalid">
+        <small *ngIf="profileForm.get('paymentMethod')?.errors?.['required']">Payment Method is required.</small>
+      </div>
+    </label>
+    <button type="submit">Save</button>
+  </form>
+</div>

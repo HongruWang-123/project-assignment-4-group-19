@@ -4,7 +4,7 @@ const passport = require('passport');
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 //auth login
-router.get('/login', authController.login);
+router.post('/login',  authController.login);
 
 //auth logout
 router.post('/logout', authController.logout);

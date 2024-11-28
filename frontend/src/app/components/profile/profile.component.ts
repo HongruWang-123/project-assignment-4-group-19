@@ -1,4 +1,4 @@
-import { Component,OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup,FormBuilder, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -18,13 +18,11 @@ export class ProfileComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private http: HttpClient) {
     this.profileForm = this.fb.group({
-      givenName: [''],
-      familyName: [''],
-      email: [''],
-      address: [''],
-      paymentMethod: [''],
-      // name: ['', Validators.required],
-      // email: ['', [Validators.required, Validators.email]],
+      givenName: ['', Validators.required],
+      familyName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
+      paymentMethod: ['', Validators.required], 
     });
   }
 
@@ -39,18 +37,35 @@ export class ProfileComponent implements OnInit {
       address: this.data.user.address,
       paymentMethod: this.data.user.paymentMethod
     });
-    
+
+    this.profileForm.valueChanges.subscribe((values) => {
+      const user = {
+        user: {
+          givenName: values.givenName,
+          familyName: values.familyName,
+          email: values.email,
+          address: values.address,
+          paymentMethod: values.paymentMethod,
+        },
+      };
+      localStorage.setItem('user', JSON.stringify(user)); // Save to localStorage
+    });
   }
   onSave(): void {
     if (this.profileForm.valid) {
       this.http.put('http://localhost:5000/api/auth/user', this.profileForm.value,{withCredentials: true}).subscribe(
         (response) => {
           console.log('Profile updated successfully:', response);
+          alert('Profile saved successfully!');
         },
         (error) => {
           console.error('Error updating profile:', error);
         }
       );
+    }
+    else{
+      alert('Please fill in all required fields with correct format.');
+      this.profileForm.markAllAsTouched(); 
     }
   }
 }
