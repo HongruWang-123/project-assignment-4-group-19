@@ -1,22 +1,18 @@
 const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-
-dotenv.config();
+const path = require('path');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
 
-// Example route
-const exampleRoutes = require('./routes/exampleRoutes');
-app.use('/api/example', exampleRoutes);
+app.use(express.static(path.join(__dirname, '../frontend/src')));
 
-// Root route
-app.get('/', (req, res) => {
-    res.send('Welcome to the Backend Server!');
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/src', 'index.html'));
 });
 
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

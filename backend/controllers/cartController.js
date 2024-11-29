@@ -58,3 +58,8 @@ exports.removeFromCart = async (req, res) => {
       res.status(500).json({ message: 'Error removing item from cart', error });
     }
 };
+
+
+exports.getCart = async (req, res) => {
+  res.status(200).send('Cart details');
+};
