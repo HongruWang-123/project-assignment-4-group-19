@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    table th, table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    table th {
+      background-color: #f4f4f4;
+    }
+    .total {
+      text-align: right;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Shopping Cart</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Items will be dynamically added here -->
+      </tbody>
+    </table>
+    <div class="total">
+      <strong>Total:</strong> $<span id="cart-total">0.00</span>
+    </div>
+    <a href="/checkout" class="btn">Proceed to Checkout</a>
+  </div>
+  <script>
+    // Mock cart data (this would come from your backend in a real application)
+    const cartData = [
+      { id: 1, name: "Product A", quantity: 2, price: 50 },
+      { id: 2, name: "Product B", quantity: 1, price: 30 },
+      { id: 3, name: "Product C", quantity: 3, price: 20 },
+    ];
+
+    // Populate cart items
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    let total = 0;
+
+    cartData.forEach(item => {
+      const subtotal = item.quantity * item.price;
+      total += subtotal;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>$${item.price.toFixed(2)}</td>
+        <td>$${subtotal.toFixed(2)}</td>
+        <td>
+          <button onclick="removeItem(${item.id})">Remove</button>
+        </td>
+      `;
+      cartItems.appendChild(row);
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+
+    // Function to remove item (placeholder, needs backend integration)
+    function removeItem(id) {
+      alert(`Remove item with ID: ${id}`);
+      // Ideally, send a request to the backend to update the cart
+    }
+  </script>
+</body>
+</html>
