@@ -12,5 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  
+  loginWithGoogle() {
+    window.location.href = 'http://localhost:5000/api/auth/google'; // Replace with your backend URL
+  }
 }

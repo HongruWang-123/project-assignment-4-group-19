@@ -3,6 +3,9 @@ const User = require('../models/userModel');
 
 
 const login = (req, res) => {
+    console.log('Authenticated:', req.isAuthenticated());
+    console.log('Session:', req.session);
+    console.log('User:', req.user);
     if (req.isAuthenticated()) {
         res.status(200).json({
             user: req.user
@@ -44,15 +47,9 @@ const googleAuth = passport.authenticate("google", {
 });
 
 
-const admins = ['105718660081689900329'];
+// const admins = ['105718660081689900329'];
 const googleCallback = (req, res) => {
-    const googleID = req.user.googleId;
-    if (googleID && admins.includes(googleID)) { //if is admin
-        res.redirect('http://localhost:4200/adminPage');
-    } 
-    else {// if is not admin
-        res.redirect('http://localhost:4200/dashboard');
-    }
+    res.redirect('http://localhost:4200/callback');
 };
 
 // User dashboard handler

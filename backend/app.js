@@ -1,10 +1,11 @@
+const passport = require('passport');
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('./config/passportConfig');
 const authRoutes = require('./routes/authRoutes');
-const passport = require('passport');
+
 const session = require('express-session');
 const path = require('path');
 
@@ -18,7 +19,7 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false, // Avoid resaving unchanged sessions
         saveUninitialized: false, // Save uninitialized sessions
-        cookie: { httpOnly: true },
+        cookie: { secure: false, httpOnly: true },
     })
 );
 

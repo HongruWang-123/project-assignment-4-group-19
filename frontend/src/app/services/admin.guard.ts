@@ -1,35 +1,35 @@
-// import { Injectable } from '@angular/core';
-// import { CanActivate, Router } from '@angular/router';
-// import { AuthService } from './auth.service';
-// import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AdminGuard implements CanActivate {
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard implements CanActivate {
+    user: any;
+    role: any;
+    constructor(private authService: AuthService, private router: Router) {}
 
-//   // constructor(private authService: AuthService, private router: Router) {}
-//   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
+    canActivate(): boolean {
+        console.log(localStorage) ;
+        console.log(localStorage.getItem('user'));
+        const userDataString =localStorage.getItem('user');
+        if (userDataString) {
+            const parsedData = JSON.parse(userDataString);
+            this.role = parsedData.user.role;
+            console.log(this.role); // John
+        }
+        console.log(this.role==='admin');
 
-//   canActivate(): boolean {
-//     // this.http.get('http://localhost:5000/api/auth/user', { withCredentials: true }).subscribe(
-//     //   (user: any) => {
-//     //     this.authService.login(user);
-//     //     console.log(localStorage.getItem('user'));
-//     //   },
-//     //   (error) => {
-//     //     console.error('Error fetching user data:', error);
-//     //   }
-//     // );
-//     if (this.authService.isAdmin()) {
-//         return true;
-//     }
-//     else{//not authorized
-//         console.log("to dashboard");
-//         this.router.navigate(['/dashboard']);
-//         return false;
-//     }
-//   }
-// }
+        if (this.role === "admin") {
+            console.log("ture, allow admin");
+            return true;
+        }
+
+        // Redirect to home or another page if not authorized
+        this.router.navigate(['/dashboard']);
+        return false;
+    }
+}
 
 

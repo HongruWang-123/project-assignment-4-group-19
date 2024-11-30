@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data = this.authService.getUser();
+    this.data = this.authService.getUser1();
     console.log(this.data);
 
     this.profileForm.patchValue({
@@ -68,4 +68,7 @@ export class ProfileComponent implements OnInit {
       this.profileForm.markAllAsTouched(); 
     }
   }
+  // deleteUser():void{
+
+  // }
 }
