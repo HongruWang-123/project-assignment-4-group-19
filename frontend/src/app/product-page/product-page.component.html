@@ -1,0 +1,27 @@
+<section id="product-list" class="product-list">
+    <!-- Loop through the products array -->
+    <div *ngFor="let product of products" class="product">
+        <!-- Product Image -->
+        <img [src]="product.Image" [alt]="product.model" class="product-image">
+
+        <!-- Product Details -->
+        <h3>{{ product.model }}</h3>
+        <p><strong>Category:</strong> {{ product.category }}</p>
+        <p><strong>Specifications:</strong> {{ product.specifications }}</p>
+        <p><strong>Manufacturer:</strong> {{ product.manufacturer }}</p>
+        <p><strong>Price:</strong> ${{ product.price.toFixed(2) }}</p>
+        <p><strong>Stock:</strong>
+            <span *ngIf="product.stock > 0">In Stock ({{ product.stock }} available)</span>
+            <span *ngIf="product.stock === 0">Out of Stock</span>
+        </p>
+        <p><strong>Review:</strong> {{ product.review }}</p>
+        <p><strong>Rating:</strong>
+            <span *ngFor="let star of [].constructor(product.rate); let i = index">⭐</span>
+        </p>
+
+        <!-- Add to Cart Button -->
+        <button class="add-to-cart" [disabled]="product.stock === 0">
+            Add to Cart
+        </button>
+    </div>
+</section>

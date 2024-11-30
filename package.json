@@ -16,6 +16,7 @@
     "concurrently": "^9.1.0"
   },
   "dependencies": {
-    "@angular/cli": "^18.2.11"
+    "@angular/cli": "^18.2.11",
+    "mongoose": "^8.8.3"
   }
 }

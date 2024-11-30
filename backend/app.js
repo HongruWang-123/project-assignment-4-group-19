@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Example route
 const exampleRoutes = require('./routes/exampleRoutes');
-app.use('/api/example', exampleRoutes);
+app.use('/api', exampleRoutes);
 
 // Root route
 app.get('/', (req, res) => {
