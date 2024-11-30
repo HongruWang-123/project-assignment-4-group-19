@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const db = require('../database/connect');
 
 dotenv.config();
 
@@ -18,5 +19,14 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Backend Server!');
 });
 
+const start = async () => {
+    try {
+        await db(process.env.MONGO_URI)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+start();
 
 module.exports = app;

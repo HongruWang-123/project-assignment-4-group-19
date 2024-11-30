@@ -1,3 +1,34 @@
+/* Ensure the product container is a responsive grid */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Responsive columns */
+  gap: 20px; /* Space between cards */
+  padding: 20px;
+}
+
+/* Style individual product cards */
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Style product image */
 .product-image {
   max-width: 100%;
   height: auto;
@@ -5,21 +36,7 @@
   margin-bottom: 10px;
 }
 
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.product {
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  text-align: center;
-}
-
+/* Style the Add to Cart button */
 .add-to-cart {
   background-color: #007bff;
   color: #fff;
@@ -36,4 +53,21 @@
 
 .add-to-cart:hover:not(:disabled) {
   background-color: #0056b3;
+}
+
+/* Add media queries for better responsiveness */
+@media (max-width: 768px) {
+  .product {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .product {
+    padding: 5px;
+  }
+
+  .add-to-cart {
+    padding: 8px 10px;
+  }
 }
