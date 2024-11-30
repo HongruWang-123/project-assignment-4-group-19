@@ -1,5 +1,23 @@
+<div class="filters">
+    <!--shopping-cart button -->
+    <button class="shopping-cart">
+        🛒 Shopping Cart
+    </button>
+    <!-- Search by model -->
+    <input type="text" placeholder="Search by model..." #searchInput (input)="onSearch(searchInput.value)" />
+
+    <!-- Filter by category -->
+    <select #categorySelect (change)="onFilterByCategory(categorySelect.value)">
+        <option value="">All Categories</option>
+        <!-- Display predefined categories -->
+        <option *ngFor="let category of uniqueCategories" [value]="category">
+            {{ category }}
+        </option>
+    </select>
+</div>
+
 <section id="product-list" class="product-list">
-    <div *ngFor="let product of products" class="product">
+    <div *ngFor="let product of filteredProducts" class="product">
         <img [src]="product.Image" [alt]="product.model" class="product-image" />
         <h3>{{ product.model }}</h3>
         <p><strong>Category:</strong> {{ product.category }}</p>

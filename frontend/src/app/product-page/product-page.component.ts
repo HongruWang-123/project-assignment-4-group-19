@@ -13,11 +13,16 @@ export class ProductPageComponent implements OnInit {
   products: any[] = [];
   // cart: any[] = [];
   // cartTotal: number = 0;
+  filteredProducts: any[] = [];
+  uniqueCategories: string[] = ['Desktop', 'Laptop', 'Accessories', 'Monitor']; // Predefined categories
+  searchQuery = '';
+  selectedCategory = '';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.fetchProducts();
+    this.uniqueCategories = ['Desktop', 'Laptop', 'Accessories', 'Monitor'];
   }
 
   // Fetch product information from the backend
@@ -26,7 +31,7 @@ export class ProductPageComponent implements OnInit {
       (response: any) => {
       // Extract the 'data' property from the response object
       this.products = response;
-      console.log(this.products)
+      this.filteredProducts = [...this.products];
     },
     (error) => {
       console.error('Error fetching products:', error);
@@ -34,5 +39,26 @@ export class ProductPageComponent implements OnInit {
     );
   }
 
+   onSearch(query: string) {
+    this.searchQuery = query.toLowerCase();
+    this.applyFilters();
+  }
+
+  onFilterByCategory(category: string) {
+    this.selectedCategory = category;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    this.filteredProducts = this.products.filter(product => {
+      const matchesCategory = this.selectedCategory
+        ? product.category === this.selectedCategory
+        : true;
+      const matchesSearch = this.searchQuery
+        ? product.model.toLowerCase().includes(this.searchQuery)
+        : true;
+      return matchesCategory && matchesSearch;
+    });
+  }
   
 }

@@ -1,10 +1,56 @@
+/* Style the filters container */
+.filters {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+  gap: 15px; /* Space between elements */
+  justify-content: space-between; /* Distribute space evenly between items */
+  align-items: center; /* Center align items vertically */
+  margin-bottom: 20px; /* Space below the filters section */
+  padding: 10px 15px; /* Add padding to the filter container */
+  background-color: #f4f4f4; /* Light background color for contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Style the search input */
+.filters input[type="text"] {
+  flex: 1; /* Let the search bar take up available space */
+  min-width: 200px; /* Ensure a minimum width */
+  padding: 10px; /* Space inside the input */
+  font-size: 16px; /* Font size for better readability */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* Remove default focus outline */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth focus transition */
+}
+
+.filters input[type="text"]:focus {
+  border-color: #007bff; /* Highlight border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow on focus */
+}
+
+/* Style the category dropdown */
+.filters select {
+  flex: 0 1 auto; /* Prevent the dropdown from stretching too much */
+  min-width: 200px; /* Ensure a minimum width */
+  padding: 10px; /* Space inside the dropdown */
+  font-size: 16px; /* Font size for better readability */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* Remove default focus outline */
+  background-color: #fff; /* White background for the dropdown */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth focus transition */
+}
+
+.filters select:focus {
+  border-color: #007bff; /* Highlight border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow on focus */
+}
+
 /* Ensure the product container is a responsive grid */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Responsive columns */
+  grid-template-columns: repeat(3, 1fr); /* 3 columns max on large screens */
   gap: 20px; /* Space between cards */
   padding: 20px;
 }
@@ -56,18 +102,69 @@
 }
 
 /* Add media queries for better responsiveness */
-@media (max-width: 768px) {
-  .product {
-    padding: 10px;
+@media (max-width: 1024px) {
+  /* Adjust grid for tablet screens */
+  .product-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    gap: 15px;
+  }
+
+  .filters {
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch; /* Stretch items to full width */
+  }
+
+  .filters input[type="text"],
+  .filters select {
+    width: 100%; /* Full width for filters */
   }
 }
 
 @media (max-width: 576px) {
+  /* Adjust grid and spacing for phone screens */
+  .product-list {
+    grid-template-columns: 1fr; /* Single column layout */
+  }
+
   .product {
-    padding: 5px;
+    padding: 10px; /* Reduce padding */
   }
 
   .add-to-cart {
-    padding: 8px 10px;
+    padding: 8px 10px; /* Adjust button size */
+  }
+
+  .filters {
+    padding: 10px; /* Reduce padding */
+  }
+}
+
+/* Style the shopping cart button */
+.shopping-cart {
+  background-color: #007bff; /* Primary color */
+  color: #fff; /* White text */
+  border: none; /* Remove border */
+  padding: 10px 15px; /* Button padding */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size for better readability */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  display: flex; /* Flex for centering icon and text */
+  align-items: center; /* Center icon and text vertically */
+  gap: 10px; /* Space between icon and text */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth hover and active transitions */
+}
+
+/* Hover effect for the shopping cart button */
+.shopping-cart:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Responsive adjustments for shopping cart button */
+@media (max-width: 768px) {
+  .shopping-cart {
+    width: 100%; /* Full width for smaller screens */
+    text-align: center; /* Center-align text */
+    justify-content: center; /* Center icon and text horizontally */
   }
 }

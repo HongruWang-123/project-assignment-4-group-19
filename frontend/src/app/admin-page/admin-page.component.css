@@ -1,0 +1,61 @@
+/* Style the buttons container */
+.form-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Space above buttons */
+  justify-content: center; /* Center align buttons */
+}
+
+/* General button styles */
+.form-buttons button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.form-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Individual button colors for actions */
+#add-btn {
+  background-color: #28a745; /* Green for add */
+}
+
+#add-btn:hover {
+  background-color: #218838;
+}
+
+#update-btn {
+  background-color: #ffc107; /* Yellow for update */
+}
+
+#update-btn:hover {
+  background-color: #e0a800;
+}
+
+#delete-btn {
+  background-color: #dc3545; /* Red for delete */
+}
+
+#delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-buttons button {
+    width: 100%; /* Full width buttons for smaller screens */
+  }
+}
