@@ -1,4 +1,4 @@
-const Order = require('../models/orderModel');
+const Order = require('../models/checkoutModel');
 const nodemailer = require('nodemailer');
 
 exports.createOrder = async (req, res) => {
