@@ -1,15 +1,21 @@
-<div class="checkout">
-    <h1>Checkout</h1>
-    <form (ngSubmit)="onCheckout()">
-      <label for="email">Email Address:</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="email"
-        name="email"
-        required
-      />
-      <p>Total Price: ${{ totalPrice }}</p>
-      <button type="submit">Place Order</button>
-    </form>
-  </div>  
+<div class="checkout-container">
+  <h2>Checkout</h2>
+
+  <!-- Shopping Cart Items -->
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <ul>
+      <li *ngFor="let item of cartItems">
+        <span>{{ item.name }}</span> - 
+        <span>{{ item.quantity }} x {{ item.price }} USD</span>
+      </li>
+    </ul>
+    <p class="total-price">Total Price: {{ totalPrice }} USD</p>
+    <p>Confirmation Email: {{ email }}</p>
+    <button (click)="confirmOrder()" class="btn btn-primary">Confirm Order</button>
+  </div>
+
+  <!-- Empty Cart Message -->
+  <ng-template #emptyCart>
+    <p>Your cart is empty. Please add some items to proceed.</p>
+  </ng-template>
+</div>

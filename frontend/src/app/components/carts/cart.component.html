@@ -1,6 +1,8 @@
 <div class="cart">
-    <h1>Your Shopping Cart</h1>
-    <table>
+  <h1>Your Shopping Cart</h1>
+  <!-- 如果购物车有商品 -->
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <table class="cart-table">
       <thead>
         <tr>
           <th>Image</th>
@@ -12,17 +14,48 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of cartItems">
+          <!-- 商品图片 -->
           <td>
-            <img [src]="item.productId.image" alt="Product Image" width="100" />
+            <img
+              [src]="item.productId.image"
+              alt="Product Image"
+              class="product-image"
+            />
           </td>
-          <td>{{ item.productId.model }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>${{ item.productId.price }}</td>
+          <!-- 商品信息 -->
           <td>
-            <button (click)="removeItem(item.productId._id)">Remove</button>
+            <strong>{{ item.productId.model }}</strong><br />
+            <small>{{ item.productId.category }}</small>
+          </td>
+          <!-- 数量控制 -->
+          <td>
+            <div class="quantity-controls">
+              <button (click)="decreaseQuantity(item)">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="increaseQuantity(item)">+</button>
+            </div>
+          </td>
+          <!-- 商品价格 -->
+          <td>${{ (item.productId.price * item.quantity).toFixed(2) }}</td>
+          <!-- 操作按钮 -->
+          <td>
+            <button class="remove-btn" (click)="removeItem(item.productId._id)">
+              Remove
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
+    <!-- 购物车概要 -->
+    <div class="cart-summary">
+      <h2>Cart Summary</h2>
+      <p><strong>Total Items:</strong> {{ cartItems.length }}</p>
+      <p><strong>Total Price:</strong> ${{ calculateTotalPrice() }}</p>
+      <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
+    </div>
   </div>
-  
+  <!-- 如果购物车为空 -->
+  <ng-template #emptyCart>
+    <p>Your cart is empty. Please add some items to proceed.</p>
+  </ng-template>
+</div>

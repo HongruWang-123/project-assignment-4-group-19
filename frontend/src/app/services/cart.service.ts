@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,19 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'http://localhost:5000/cart';
+  private baseUrl = '/api/cart';
 
   constructor(private http: HttpClient) {}
 
-  addToCart(userId: string, productId: string, quantity: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/add`, { userId, productId, quantity });
-  }
-
-  removeFromCart(userId: string, productId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/remove`, { userId, productId });
-  }
-
   getCart(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${userId}`);
+    return this.http.get(`${this.baseUrl}/${userId}`);
+  }
+
+  addToCart(data: { userId: string; productId: string; quantity: number }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/add`, data);
+  }
+
+  removeFromCart(data: { userId: string; productId: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/remove`, data);
   }
 }

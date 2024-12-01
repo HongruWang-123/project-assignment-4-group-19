@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@angular/cli": "^18.2.11",
+    "@angular/forms": "^18.2.11",
     "dotenv": "^16.4.5",
     "mangodb": "^1.0.0",
     "mongoose": "^8.8.3",

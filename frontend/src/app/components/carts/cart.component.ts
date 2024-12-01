@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,34 +6,66 @@ import { CartService } from './services/cart.service';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  cartItems: any[] = [];
-  userId = '123'; // 假设当前用户 ID 为 123
-
-  constructor(private cartService: CartService) {}
+  cartItems: any[] = []; // Shopping cart items
 
   ngOnInit(): void {
-    this.loadCart();
+    // Example data, replace with data from a service
+    this.cartItems = [
+      {
+        productId: {
+          _id: '1',
+          image: 'https://via.placeholder.com/100',
+          model: 'Product 1',
+          price: 50,
+          category: 'Category 1',
+        },
+        quantity: 2,
+      },
+      {
+        productId: {
+          _id: '2',
+          image: 'https://via.placeholder.com/100',
+          model: 'Product 2',
+          price: 30,
+          category: 'Category 2',
+        },
+        quantity: 1,
+      },
+    ];
   }
 
-  loadCart(): void {
-    this.cartService.getCart(this.userId).subscribe(
-      (data) => {
-        this.cartItems = data.items;
-      },
-      (error) => {
-        console.error('Error loading cart:', error);
-      }
+  // Decrease the quantity of an item
+  decreaseQuantity(item: any): void {
+    if (item.quantity > 1) {
+      item.quantity--;
+    } else {
+      this.removeItem(item.productId._id);
+    }
+  }
+
+  // Increase the quantity of an item
+  increaseQuantity(item: any): void {
+    item.quantity++;
+  }
+
+  // Calculate the total price of items in the cart
+  calculateTotalPrice(): number {
+    return this.cartItems.reduce(
+      (total, item) => total + item.productId.price * item.quantity,
+      0
     );
   }
 
+  // Remove an item from the cart
   removeItem(productId: string): void {
-    this.cartService.removeFromCart(this.userId, productId).subscribe(
-      () => {
-        this.loadCart(); // 重新加载购物车
-      },
-      (error) => {
-        console.error('Error removing item:', error);
-      }
+    this.cartItems = this.cartItems.filter(
+      (item) => item.productId._id !== productId
     );
+  }
+
+  // Proceed to checkout
+  checkout(): void {
+    alert('Proceeding to checkout...');
+    // Add logic to navigate to the checkout page or process payment
   }
 }
