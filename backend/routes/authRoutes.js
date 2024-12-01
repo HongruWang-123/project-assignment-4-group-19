@@ -21,7 +21,11 @@ router.get('/user', authController.getProfile);
 
 router.put('/user', authMiddleware.isAuthenticated, authController.updateProfile);
 
-router.get('/userlist', authController.getUserList);
+router.get('/userlist', authMiddleware.isAuthenticated, authMiddleware.isAdmin, authController.getUserList);
+
+router.put('/updateRole/:googleId',authMiddleware.isAuthenticated, authMiddleware.isAdmin,authController.updateRole)
+
+router.delete('/deleteUser/:googleId',authMiddleware.isAuthenticated, authMiddleware.isAdmin,authController.deleteUser)
 
 //protected route
 router.get('/dashboard', authMiddleware.isAuthenticated, authController.dashboard);

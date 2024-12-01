@@ -1,2 +1,28 @@
-<app-nav></app-nav>
-<p>adminuser works!</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Given Name</th>
+            <th>Family Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.givenName }}</td>
+            <td>{{ user.familyName }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <select [(ngModel)]="user.role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </td>
+            <td>
+                <button (click)="updateRole(user)">Save</button>
+                <button (click)="deleteUser(user.googleId)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

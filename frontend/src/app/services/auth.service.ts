@@ -4,10 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 
+interface User {
+  googleId: string;
+  familyName: string;
+  givenName: string;
+  email: string;
+  role: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = 'http://localhost:5000/api/auth';
   private user: any = null;
   private role: any;
   private email: any;
@@ -49,8 +58,15 @@ export class AuthService {
     }
   }
 
-  getUserList(): Observable<any> {
-    return this.http.get<any>('http://localhost:5000/api/auth/userlist');
+  getUserList(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/userlist`,{ withCredentials: true });
+  }
+
+  updateUserRole(googleId: string, role: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/updateRole/${googleId}`, { role },{ withCredentials: true });
+  }
+  deleteUser(googleId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteUser/${googleId}`,{ withCredentials: true });
   }
 
 

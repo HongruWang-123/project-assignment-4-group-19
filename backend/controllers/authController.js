@@ -99,6 +99,44 @@ const getUserList = async (req, res) => {
     }
 }
 
+
+const updateRole = async (req, res) => {
+    const { googleId } = req.params;
+    const { role } = req.body;
+
+    try {
+        const user = await User.findOneAndUpdate({googleId},{ role },{ new: true });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Role updated successfully', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating role', error });
+    }
+}
+
+
+const deleteUser = async (req, res) => {
+    const { googleId } = req.params;
+
+    if (!googleId) {
+      return res.status(400).json({ error: 'googleId query parameter is required' });
+    }
+  
+    try {
+      const result = await User.findOneAndDelete({ googleId });
+      if (!result) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      res.status(200).json({ message: 'User deleted successfully', user: result });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+}
 module.exports = {
     login,
     logout,
@@ -108,5 +146,7 @@ module.exports = {
     updateProfile,
     dashboard,
     adminPage,
-    getUserList
+    getUserList,
+    updateRole,
+    deleteUser
 };
