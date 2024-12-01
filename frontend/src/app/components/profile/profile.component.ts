@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
       paymentMethod: ['', Validators.required], 
-      role: ['', Validators.required],
     });
     this.isAdmin = false;
   }
@@ -32,10 +31,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.data = this.authService.getUser1();
     console.log(this.data);
-    this.isAdmin = this.authService.getRole() ==='admin';
-    if (this.isAdmin) {
-      this.profileForm.addControl('role', this.fb.control(''));
-    }
 
     this.profileForm.patchValue({
       givenName: this.data.user.givenName,
@@ -43,7 +38,6 @@ export class ProfileComponent implements OnInit {
       email: this.data.user.email,
       address: this.data.user.address,
       paymentMethod: this.data.user.paymentMethod,
-      role: this.data.user.role
     });
 
     this.profileForm.valueChanges.subscribe((values) => {
@@ -53,8 +47,7 @@ export class ProfileComponent implements OnInit {
           familyName: values.familyName,
           email: values.email,
           address: values.address,
-          paymentMethod: values.paymentMethod,
-          role: values.role
+          paymentMethod: values.paymentMethod
         },
       };
       localStorage.setItem('user', JSON.stringify(user)); // Save to localStorage

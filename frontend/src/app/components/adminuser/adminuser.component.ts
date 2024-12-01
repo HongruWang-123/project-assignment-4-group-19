@@ -45,9 +45,12 @@ export class AdminuserComponent implements OnInit {
   }
 
   deleteUser(googleId: string): void {
-    this.authService.deleteUser(googleId).subscribe(() => {
+    const isConfirmed = confirm('Are you sure you want to delete this user?');
+    if (isConfirmed) {
+      this.authService.deleteUser(googleId).subscribe(() => {
         this.users = this.users.filter(user => user.googleId !== googleId);
-        alert('User deleted successfully!');
-    });
+      });
+    }
+
   }
 }

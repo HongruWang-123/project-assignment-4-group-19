@@ -41,19 +41,6 @@
         <small *ngIf="profileForm.get('paymentMethod')?.errors?.['required']">Payment Method is required.</small>
       </div>
     </label>
-    <div *ngIf="isAdmin">
-      <label>
-        Role:
-        <select formControlName="role">
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-        </select>
-        <div *ngIf="profileForm.get('role')?.touched && profileForm.get('role')?.invalid">
-          <small *ngIf="profileForm.get('role')?.errors?.['required']">Role is required.</small>
-        </div>
-      </label>
-    </div>
     <button type="submit">Save</button>
-    <!-- <button type="button" (click)="deleteUser()">Delete</button> -->
   </form>
 </div>

@@ -2,18 +2,6 @@ const passport = require('passport');
 const User = require('../models/userModel');
 
 
-const login = (req, res) => {
-    console.log('Authenticated:', req.isAuthenticated());
-    console.log('Session:', req.session);
-    console.log('User:', req.user);
-    if (req.isAuthenticated()) {
-        res.status(200).json({
-            user: req.user
-        });
-    } else {
-        res.status(401).json({ message: 'no' });
-    }
-};
 
 // Logout the user and clear session
 const logout = (req, res, next) => {
@@ -47,7 +35,7 @@ const googleAuth = passport.authenticate("google", {
 });
 
 
-// const admins = ['105718660081689900329'];
+// Direct to frontend
 const googleCallback = (req, res) => {
     res.redirect('http://localhost:4200/callback');
 };
@@ -71,7 +59,7 @@ const getProfile = (req,res) => {
     }
 };
 
-
+// Update profile infomation
 const updateProfile = async (req,res) =>{
     try {
         const userId = req.user.id;
@@ -90,6 +78,7 @@ const updateProfile = async (req,res) =>{
         }
 };
 
+// return all user infomation for admin
 const getUserList = async (req, res) => {
     try {
         const users = await User.find();
@@ -99,7 +88,7 @@ const getUserList = async (req, res) => {
     }
 }
 
-
+//update user role (admin only)
 const updateRole = async (req, res) => {
     const { googleId } = req.params;
     const { role } = req.body;
@@ -117,7 +106,7 @@ const updateRole = async (req, res) => {
     }
 }
 
-
+//delete user (admin only)
 const deleteUser = async (req, res) => {
     const { googleId } = req.params;
 
@@ -138,7 +127,6 @@ const deleteUser = async (req, res) => {
     }
 }
 module.exports = {
-    login,
     logout,
     googleAuth,
     googleCallback,
