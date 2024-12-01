@@ -1,0 +1,15 @@
+<div class="checkout">
+    <h1>Checkout</h1>
+    <form (ngSubmit)="onCheckout()">
+      <label for="email">Email Address:</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+      <p>Total Price: ${{ totalPrice }}</p>
+      <button type="submit">Place Order</button>
+    </form>
+  </div>  

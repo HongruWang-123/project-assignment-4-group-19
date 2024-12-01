@@ -1,24 +1,32 @@
 const express = require('express');
-const path = require('path');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const db = require('../database/connect');
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
+app.use(cors());
+app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../frontend/src')));
+// Example route
+const exampleRoutes = require('./routes/exampleRoutes');
+app.use('/api', exampleRoutes);
 
-
-app.get('/cart', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src/app', 'cart.html'));
+// Root route
+app.get('/', (req, res) => {
+    res.send('Welcome to the Backend Server!');
 });
 
+const start = async () => {
+    try {
+        await db(process.env.MONGO_URI)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/src', 'index.html'));
-});
+start();
 
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
+module.exports = app;
