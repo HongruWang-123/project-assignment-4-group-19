@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ProductService } from '../services/product.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-page',
@@ -9,8 +11,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.css']
 })
-export class ProductPageComponent implements OnInit {
+export class ProductPageComponent implements OnInit, OnDestroy {
   products: any[] = [];
+  productSubscription: Subscription | undefined;
   // cart: any[] = [];
   // cartTotal: number = 0;
   filteredProducts: any[] = [];
@@ -18,11 +21,16 @@ export class ProductPageComponent implements OnInit {
   searchQuery = '';
   selectedCategory = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private productService: ProductService) {}
 
   ngOnInit(): void {
     this.fetchProducts();
     this.uniqueCategories = ['Desktop', 'Laptop', 'Accessories', 'Monitor'];
+    // Subscribe to product updates
+    this.productSubscription = this.productService.productUpdated$.subscribe(() => {
+      console.log('Product update detected in ProductPageComponent');
+      this.fetchProducts(); // Refresh product list
+    });
   }
 
   // Fetch product information from the backend
@@ -59,6 +67,13 @@ export class ProductPageComponent implements OnInit {
         : true;
       return matchesCategory && matchesSearch;
     });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe to avoid memory leaks
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
   }
   
 }

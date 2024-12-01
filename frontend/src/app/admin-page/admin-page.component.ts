@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -13,7 +14,7 @@ import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular
 export class AdminPageComponent {
   computerForm: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private fb: FormBuilder,private productService: ProductService) {
     this.computerForm = this.fb.group({
       model: ['', Validators.required],
       category: ['', Validators.required],
@@ -40,6 +41,7 @@ export class AdminPageComponent {
       next: (response) => {
         alert('Computer added successfully.');
         console.log(response);
+        this.productService.notifyProductUpdated(); // Notify update
         this.computerForm.reset();
       },
       error: (error) => {
@@ -64,6 +66,7 @@ updateComputer() {
     next: (response) => {
       alert('Computer updated successfully.');
       console.log(response);
+      this.productService.notifyProductUpdated(); // Notify update
       this.computerForm.reset();
     },
     error: (error) => {
@@ -86,7 +89,8 @@ updateComputer() {
       next: (response) => {
         alert('Computer deleted successfully.');
         console.log(response);
-        this.computerForm.reset();
+         this.productService.notifyProductUpdated(); // Notify update
+         this.computerForm.reset();
       },
       error: (error) => {
         alert('Failed to delete the computer.');
