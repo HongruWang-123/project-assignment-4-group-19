@@ -9,6 +9,9 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class AuthService {
   private user: any = null;
+  private role: any;
+  private email: any;
+  
   constructor(private router: Router,private http: HttpClient) {}
 
   login(): void {
@@ -32,6 +35,35 @@ export class AuthService {
       console.log('Loaded user from localStorage:', this.user);
     }
     return of(this.user);
+  }
+
+  getRole(): string {
+    const userDataString =localStorage.getItem('user');
+    if (userDataString) {
+        const parsedData = JSON.parse(userDataString);
+        this.role = parsedData.user.role;
+        return this.role;
+    }
+    else{
+      return '';
+    }
+  }
+
+  getUserList(): Observable<any> {
+    return this.http.get<any>('http://localhost:5000/api/auth/userlist');
+  }
+
+
+  getEmail(): string {
+    const userDataString =localStorage.getItem('user');
+    if (userDataString) {
+        const parsedData = JSON.parse(userDataString);
+        this.email = parsedData.user.email;
+        return this.email;
+    }
+    else{
+      return '';
+    }
   }
 
 
@@ -64,7 +96,6 @@ export class AuthService {
   // Logout
   logout(): void {
     this.user = null;
-    console.log("Clear the localstorage");
     console.log(localStorage);
     this.http.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true }).subscribe({
       next: (response) => {

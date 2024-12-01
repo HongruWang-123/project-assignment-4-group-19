@@ -26,6 +26,11 @@ export class NavComponent {
     this.router.navigate(['/adminPage']); 
   }
 
+  //View Manage User
+  navigateToAdminuser() {
+    this.router.navigate(['/adminuser']); 
+  }
+
   //logout
   onLogout() {
     this.authService.logout();

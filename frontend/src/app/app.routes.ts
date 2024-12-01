@@ -6,6 +6,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CallbackComponent } from './components/callback/callback.component';
+import { AdminuserComponent } from './components/adminuser/adminuser.component';
 import { AuthGuard } from './services/auth.guard';
 import { AdminGuard } from './services/admin.guard';
 
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'callback', component: CallbackComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   { path: 'adminPage', component: AdminComponent, canActivate:[AuthGuard,AdminGuard]},
+  { path: 'adminuser', component: AdminuserComponent, canActivate:[AuthGuard,AdminGuard]},
   { path: '**', redirectTo: '' },
 ];

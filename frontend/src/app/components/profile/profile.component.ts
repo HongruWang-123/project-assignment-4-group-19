@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
   data: any;
   profileForm: FormGroup;
+  isAdmin: boolean;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private http: HttpClient) {
     this.profileForm = this.fb.group({
@@ -23,19 +24,26 @@ export class ProfileComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
       paymentMethod: ['', Validators.required], 
+      role: ['', Validators.required],
     });
+    this.isAdmin = false;
   }
 
   ngOnInit(): void {
     this.data = this.authService.getUser1();
     console.log(this.data);
+    this.isAdmin = this.authService.getRole() ==='admin';
+    if (this.isAdmin) {
+      this.profileForm.addControl('role', this.fb.control(''));
+    }
 
     this.profileForm.patchValue({
       givenName: this.data.user.givenName,
       familyName: this.data.user.familyName,
       email: this.data.user.email,
       address: this.data.user.address,
-      paymentMethod: this.data.user.paymentMethod
+      paymentMethod: this.data.user.paymentMethod,
+      role: this.data.user.role
     });
 
     this.profileForm.valueChanges.subscribe((values) => {
@@ -46,6 +54,7 @@ export class ProfileComponent implements OnInit {
           email: values.email,
           address: values.address,
           paymentMethod: values.paymentMethod,
+          role: values.role
         },
       };
       localStorage.setItem('user', JSON.stringify(user)); // Save to localStorage
@@ -68,7 +77,19 @@ export class ProfileComponent implements OnInit {
       this.profileForm.markAllAsTouched(); 
     }
   }
-  // deleteUser():void{
 
-  // }
+  deleteUser():void{
+    const confirmDelete = confirm('Are you sure you want to delete this user?');
+    if (confirmDelete){
+      this.http.delete(`http://localhost:5000/api/auth/delete`).subscribe({
+        next: (response) => {
+          console.log('User deleted successfully:', response);
+          // log out and redirect to login page
+        },
+        error: (err) => {
+          console.error('Error deleting user:', err);
+        },
+      });
+    }
+  }
 }

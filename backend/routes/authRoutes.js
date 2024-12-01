@@ -21,6 +21,8 @@ router.get('/user', authController.getProfile);
 
 router.put('/user', authMiddleware.isAuthenticated, authController.updateProfile);
 
+router.get('/userlist', authController.getUserList);
+
 //protected route
 router.get('/dashboard', authMiddleware.isAuthenticated, authController.dashboard);
 router.get('/adminPage', authMiddleware.isAuthenticated, authMiddleware.isAdmin, authController.adminPage);

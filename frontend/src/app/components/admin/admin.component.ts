@@ -12,15 +12,5 @@ import { Router } from '@angular/router';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  // constructor(private authService: AuthService, private http: HttpClient, private router: Router) {
-  //   this.http.get('http://localhost:5000/api/auth/user', { withCredentials: true }).subscribe(
-  //     (user: any) => {
-  //       this.authService.login(user);
-  //       console.log(localStorage.getItem('user'));
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching user data:', error);
-  //     }
-  //   );
-  // }
+
 }

@@ -75,10 +75,10 @@ const getProfile = (req,res) => {
 const updateProfile = async (req,res) =>{
     try {
         const userId = req.user.id;
-        const { familyName, givenName, address, paymentMethod } = req.body;
+        const { familyName, givenName, address, paymentMethod,role } = req.body;
         const updatedUser = await User.findByIdAndUpdate(
             userId,
-            { familyName, givenName, address, paymentMethod },
+            { familyName, givenName, address, paymentMethod, role },
             { new: true, runValidators: true }
         );
         if (!updatedUser) {
@@ -90,6 +90,15 @@ const updateProfile = async (req,res) =>{
         }
 };
 
+const getUserList = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
 module.exports = {
     login,
     logout,
@@ -99,4 +108,5 @@ module.exports = {
     updateProfile,
     dashboard,
     adminPage,
+    getUserList
 };
