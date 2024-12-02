@@ -9,6 +9,8 @@ import { CallbackComponent } from './components/callback/callback.component';
 import { AdminuserComponent } from './components/adminuser/adminuser.component';
 import { AuthGuard } from './services/auth.guard';
 import { AdminGuard } from './services/admin.guard';
+// import { ProductPageComponent } from './components/product-page/product-page.component';
+// import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,5 +19,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   { path: 'adminPage', component: AdminComponent, canActivate:[AuthGuard,AdminGuard]},
   { path: 'adminuser', component: AdminuserComponent, canActivate:[AuthGuard,AdminGuard]},
+  // {path: 'products', component: ProductPageComponent},
+  // {path: 'admin', component: AdminPageComponent},
   { path: '**', redirectTo: '' },
 ];

@@ -1,0 +1,37 @@
+<div class="filters">
+    <!--shopping-cart button -->
+    <button class="shopping-cart">
+        🛒 Shopping Cart
+    </button>
+    <!-- Search by model -->
+    <input type="text" placeholder="Search by model..." #searchInput (input)="onSearch(searchInput.value)" />
+
+    <!-- Filter by category -->
+    <select #categorySelect (change)="onFilterByCategory(categorySelect.value)">
+        <option value="">All Categories</option>
+        <!-- Display predefined categories -->
+        <option *ngFor="let category of uniqueCategories" [value]="category">
+            {{ category }}
+        </option>
+    </select>
+</div>
+
+<section id="product-list" class="product-list">
+    <div *ngFor="let product of filteredProducts" class="product">
+        <img [src]="product.Image" [alt]="product.model" class="product-image" />
+        <h3>{{ product.model }}</h3>
+        <p><strong>Category:</strong> {{ product.category }}</p>
+        <p><strong>Specifications:</strong> {{ product.specification }}</p>
+        <p><strong>Price:</strong> ${{ product.price.toFixed(2) }}</p>
+        <p><strong>Stock:</strong>
+            {{ product.stock > 0 ? 'In Stock (' + product.stock + ' available)' : 'Out of Stock' }}
+        </p>
+        <p><strong>Review:</strong> {{ product.review }}</p>
+        <p><strong>Rating:</strong>
+            <span *ngFor="let star of [].constructor(product.rate)">⭐</span>
+        </p>
+        <button class="add-to-cart" [disabled]="product.stock === 0">
+            Add to Cart
+        </button>
+    </div>
+</section>
