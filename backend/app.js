@@ -39,6 +39,13 @@ app.use('/api', exampleRoutes);
 
 // Auth route
 app.use('/api/auth',authRoutes);
+// cart route
+const cartRoutes = require('./routes/cartRoutes');
+app.use('/api/cart', cartRoutes);
+
+const checkoutRoutes = require('./routes/checkoutRoutes');
+app.use('/api/checkout', checkoutRoutes);
+
 
 //connect to user mongodb
 USER_MONGODB_URI = process.env.USER_MONGODB_URI;

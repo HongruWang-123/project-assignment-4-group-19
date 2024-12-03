@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run email\"",
     "server": "nodemon backend/server.js",
-    "client": "cd frontend && ng serve"
+    "client": "cd frontend && ng serve",
+    "email": "nodemon email_server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,9 @@
   "dependencies": {
     "@angular/cli": "^18.2.11",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "ioredis": "^5.4.1",
-    "mongoose": "^8.8.2"
+    "mongoose": "^8.8.2",
+    "nodemailer": "^6.9.16"
   }
 }

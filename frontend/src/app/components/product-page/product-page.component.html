@@ -1,6 +1,6 @@
 <div class="filters">
     <!--shopping-cart button -->
-    <button class="shopping-cart">
+    <button class="shopping-cart" (click)="goToCart()">
         🛒 Shopping Cart
     </button>
     <!-- Search by model -->
@@ -30,7 +30,7 @@
         <p><strong>Rating:</strong>
             <span *ngFor="let star of [].constructor(product.rate)">⭐</span>
         </p>
-        <button class="add-to-cart" [disabled]="product.stock === 0">
+        <button class="add-to-cart" [disabled]="product.stock === 0" (click)="addToCart(product)">
             Add to Cart
         </button>
     </div>

@@ -1,0 +1,39 @@
+<div class="checkout-container">
+  <h1 class="checkout-title">Checkout Page</h1>
+
+  <!-- 用户输入地址信息 -->
+  <div class="address-input-container">
+    <p>Your Shipping Address</p>
+    <input type="text" class="address-input" [(ngModel)]="street" placeholder="Street" required />
+    <input type="text" class="address-input" [(ngModel)]="city" placeholder="City" required />
+    <input type="text" class="address-input" [(ngModel)]="province" placeholder="Province" required />
+    <input type="text" class="address-input" [(ngModel)]="country" placeholder="Country" required />
+    <input type="text" class="address-input" [(ngModel)]="postcode" placeholder="Postcode" required />
+  </div>
+
+  <!-- 用户输入银行卡信息 -->
+  <div class="payment-input-container">
+    <p>Payment</p>
+    <input type="text" class="payment-input" [(ngModel)]="cardNumber" placeholder="Card Number" required />
+    <input type="text" class="payment-input" [(ngModel)]="expiryDate" placeholder="Expiry Date (MM/YY)" required />
+    <input type="text" class="payment-input" [(ngModel)]="cvv" placeholder="CVV" required />
+    <input type="text" class="payment-input" [(ngModel)]="nameOnCard" placeholder="Name on Card" required />
+  </div>
+
+  <!-- 购物车项目列表 -->
+  <ul class="cart-item-list">
+    <li *ngFor="let item of cartItems" class="cart-item">
+      <div class="cart-item-details">
+        <span class="cart-item-name">{{ item.name }}</span>
+        <span class="cart-item-price">${{ item.price }} x {{ item.quantity }}</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- 总价格显示 -->
+  <p><strong>Total Price:</strong> ${{ totalPrice | currency:'USD': 'symbol':'1.2-2' }}</p>
+
+  <!-- 确认订单按钮 -->
+  <button class="confirm-button" (click)="confirmOrder()">Confirm Order</button>
+</div>
+

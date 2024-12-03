@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-page',
@@ -21,7 +23,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   searchQuery = '';
   selectedCategory = '';
 
-  constructor(private http: HttpClient,private productService: ProductService) {}
+  constructor(private http: HttpClient,private productService: ProductService, private router: Router, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -74,6 +76,21 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     if (this.productSubscription) {
       this.productSubscription.unsubscribe();
     }
+  }
+
+  goToCart(): void {
+    this.router.navigate(['/cart']);
+  }
+
+  addToCart(product: any): void {
+    console.log('Add to Cart button clicked for product:', product);
+    const cartItem = {
+      productId: product,
+      quantity: 1
+    };
+    this.cartService.updateCart(cartItem);
+    console.log('Product added to cart:', cartItem);
+    alert('Product added to cart successfully!');
   }
   
 }

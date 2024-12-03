@@ -11,6 +11,10 @@ import { AuthGuard } from './services/auth.guard';
 import { AdminGuard } from './services/admin.guard';
 // import { ProductPageComponent } from './components/product-page/product-page.component';
 // import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { CartComponent } from './components/carts/cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+
+
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -21,5 +25,11 @@ export const routes: Routes = [
   { path: 'adminuser', component: AdminuserComponent, canActivate:[AuthGuard,AdminGuard]},
   // {path: 'products', component: ProductPageComponent},
   // {path: 'admin', component: AdminPageComponent},
+  
+  { path: 'cart', component: CartComponent },
+  { path: 'checkout', component: CheckoutComponent },
+
+
+
   { path: '**', redirectTo: '' },
 ];

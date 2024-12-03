@@ -1,0 +1,131 @@
+/* 美化购物车容器 */
+.checkout-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* 标题样式 */
+.checkout-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.email-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* 地址输入字段样式 */
+.address-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.address-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* 银行卡信息输入字段样式 */
+.payment-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.payment-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* 购物车项目列表样式 */
+.cart-item-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+/* 购物车项目的描述 */
+.cart-item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.cart-item-price {
+  color: #666;
+}
+
+/* 确认按钮样式 */
+.confirm-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #218838;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 15px;
+  }
+
+  .address-input-container, .payment-input-container {
+    gap: 8px;
+  }
+
+  .confirm-button {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
