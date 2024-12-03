@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -28,12 +29,16 @@ export class CheckoutComponent implements OnInit {
   cvv: string = '';
   nameOnCard: string = '';
 
-  constructor(private cartService: CartService, private http: HttpClient, private authService: AuthService) {}
+  constructor(private cartService: CartService, private http: HttpClient, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCartData(); // Load shopping cart data
   }
-
+   
+  //View Dashboard
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']); 
+  }
   // Load shopping cart data from the service
   loadCartData(): void {
     const data = this.cartService.getCartItems();

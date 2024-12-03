@@ -40,8 +40,8 @@
     <div class="cart-summary">
       <h2>Cart Summary</h2>
       <p><strong>Total Items:</strong> {{ getTotalItems() }}</p>
-      <p><strong>Total Price:</strong> ${{ totalPrice | currency:'USD': 'symbol':'1.2-2' }}</p>
-      <p><strong>After Tax (13%): </strong> ${{ totalPrice * 1.13 | currency:'USD': 'symbol':'1.2-2' }}</p>
+      <p><strong>Total Price:</strong> {{ totalPrice | currency:'USD': 'symbol':'1.2-2' }}</p>
+      <p><strong>After Tax (13%): </strong> {{ totalPrice * 1.13 | currency:'USD': 'symbol':'1.2-2' }}</p>
       <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
     </div>
   </div>

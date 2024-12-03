@@ -25,15 +25,16 @@
     <li *ngFor="let item of cartItems" class="cart-item">
       <div class="cart-item-details">
         <span class="cart-item-name">{{ item.name }}</span>
-        <span class="cart-item-price">${{ item.price }} x {{ item.quantity }}</span>
+        <span class="cart-item-price">{{ (item.price * item.quantity * 1.13).toFixed(2) }} </span>
       </div>
     </li>
   </ul>
 
   <!-- 总价格显示 -->
-  <p><strong>Total Price:</strong> ${{ totalPrice | currency:'USD': 'symbol':'1.2-2' }}</p>
+  <p><strong>Total Price:</strong> {{ totalPrice*1.13 | currency:'USD': 'symbol':'1.2-2' }}</p>
 
   <!-- 确认订单按钮 -->
   <button class="confirm-button" (click)="confirmOrder()">Confirm Order</button>
+  <button class="confirm-button" (click)="navigateToDashboard()">back to dashboard</button>
 </div>
 

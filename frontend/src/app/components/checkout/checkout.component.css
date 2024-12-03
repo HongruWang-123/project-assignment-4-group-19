@@ -96,6 +96,7 @@
 
 /* 确认按钮样式 */
 .confirm-button {
+  margin: 10px;
   display: block;
   width: 100%;
   padding: 15px;
@@ -120,7 +121,8 @@
     padding: 15px;
   }
 
-  .address-input-container, .payment-input-container {
+  .address-input-container,
+  .payment-input-container {
     gap: 8px;
   }
 
