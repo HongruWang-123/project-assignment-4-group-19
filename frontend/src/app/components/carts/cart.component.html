@@ -24,7 +24,10 @@
             <div class="quantity-controls">
               <button (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
               <span>{{ item.quantity }}</span>
-              <button (click)="increaseQuantity(item)">+</button>
+              <button (click)="increaseQuantity(item)" [disabled]="item.quantity >= item.productId.stock">+</button>
+              <div *ngIf="item.quantity >= item.productId.stock" class="stock-warning">
+                Maximum stock reached
+              </div>
             </div>
           </td>
           <td>${{ (item.productId.price * item.quantity).toFixed(2) }}</td>

@@ -30,8 +30,11 @@
         <p><strong>Rating:</strong>
             <span *ngFor="let star of [].constructor(product.rate)">⭐</span>
         </p>
-        <button class="add-to-cart" [disabled]="product.stock === 0" (click)="addToCart(product)">
-            Add to Cart
+        <button 
+          (click)="addToCart(product)" 
+          [disabled]="product.stock <= 0"
+          class="add-to-cart-button">
+          {{ product.stock <= 0 ? 'Out of Stock' : 'Add to Cart' }}
         </button>
     </div>
 </section>

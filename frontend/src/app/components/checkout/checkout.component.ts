@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   cvv: string = '';
   nameOnCard: string = '';
 
-  constructor(private cartService: CartService, private http: HttpClient) {}
+  constructor(private cartService: CartService, private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadCartData(); // Load shopping cart data
@@ -51,22 +52,46 @@ export class CheckoutComponent implements OnInit {
   }
 
   confirmOrder(): void {
-    if (!this.street || !this.city || !this.province || !this.country || !this.postcode || !this.cardNumber || !this.expiryDate || !this.cvv || !this.nameOnCard) {
+    if (!this.street || !this.city || !this.province || !this.country || !this.postcode || 
+        !this.cardNumber || !this.expiryDate || !this.cvv || !this.nameOnCard) {
       alert('Please fill in all the required fields to proceed with the order.');
       return;
     }
 
-    this.sendEmail(this.cartItems, this.totalPrice);
+    const userData = this.authService.getUser1();
+    if (!userData) {
+      alert('Please login to proceed with checkout');
+      return;
+    }
 
-    alert(`Order confirmed! A confirmation email has been sent.`);
-    this.cartItems = [];
-    this.totalPrice = 0;
+    const orderData = {
+      userId: userData.user._id,
+      totalAmount: this.cartItems.reduce((sum, item) => sum + item.quantity, 0),
+      items: this.cartService.getCartItems().map(item => ({
+        productId: item.productId._id,
+        quantity: item.quantity
+      })),
+      email: this.authService.getEmail(),
+      status: 'Pending'
+    };
+
+    // 发送到后端更新库存
+    this.http.post('http://localhost:5000/api/checkout', orderData).subscribe(
+      () => {
+        // 库存更新成功后，发送确认邮件
+        this.sendEmail(this.cartItems, this.totalPrice);
+      },
+      (error) => {
+        console.error('Error updating stock:', error);
+        alert('There was an error processing your order. Please try again.');
+      }
+    );
   }
 
   // Send email via backend
   sendEmail(items: { name: string; quantity: number; price: number }[], total: number): void {
-    const payload = {
-      email: 'z2827971726@gmail.com',
+    const emailPayload = {
+      email: this.authService.getEmail(),
       items,
       total,
       address: {
@@ -83,9 +108,13 @@ export class CheckoutComponent implements OnInit {
         nameOnCard: this.nameOnCard,
       }
     };
-    this.http.post('http://localhost:3000/send-email', payload).subscribe(
+
+    this.http.post('http://localhost:3000/send-email', emailPayload).subscribe(
       (response) => {
         console.log('Email sent successfully:', response);
+        this.cartService.checkout([]); // 清空购物车
+        this.cartItems = [];
+        this.totalPrice = 0;
         alert('Order confirmed! A confirmation email has been sent.');
       },
       (error) => {
@@ -94,6 +123,4 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
-
-
 }

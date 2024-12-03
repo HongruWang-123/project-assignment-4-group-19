@@ -83,13 +83,27 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: any): void {
-    console.log('Add to Cart button clicked for product:', product);
+    // 检查库存
+    if (product.stock <= 0) {
+      alert('Sorry, this product is out of stock!');
+      return;
+    }
+
+    // Get cart items directly as an array
+    const cartItems = this.cartService.getCartItems();
+    const existingItem = cartItems.find(item => item.productId._id === product._id);
+    
+    if (existingItem) {
+      alert('This product is already in your cart!');
+      return;
+    }
+
+    // If item doesn't exist, add to cart
     const cartItem = {
       productId: product,
       quantity: 1
     };
     this.cartService.updateCart(cartItem);
-    console.log('Product added to cart:', cartItem);
     alert('Product added to cart successfully!');
   }
   

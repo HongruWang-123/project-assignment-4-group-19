@@ -53,12 +53,17 @@ export class CartComponent implements OnInit, OnDestroy {
 
     const index = this.cartItems.findIndex(cartItem => cartItem.productId._id === item.productId._id);
     if (index > -1) {
+      if (this.cartItems[index].quantity >= item.productId.stock) {
+        alert('Sorry, no more stock available for this product!');
+        return;
+      }
+
       const updatedItem = {
         ...this.cartItems[index],
         quantity: this.cartItems[index].quantity + 1,
-        productId: { ...this.cartItems[index].productId } // 保留所有属性，包括 price
+        productId: { ...this.cartItems[index].productId }
       };
-      console.log('Updated Item after Increase:', updatedItem); // 输出更新后的项目
+      console.log('Updated Item after Increase:', updatedItem);
       this.cartItems[index] = updatedItem;
 
       this.cartService.updateCart(updatedItem);
