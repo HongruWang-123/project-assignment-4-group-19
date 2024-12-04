@@ -83,7 +83,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: any): void {
-    // 检查库存
     if (product.stock <= 0) {
       alert('Sorry, this product is out of stock!');
       return;
