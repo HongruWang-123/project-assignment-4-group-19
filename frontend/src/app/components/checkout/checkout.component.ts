@@ -80,10 +80,9 @@ export class CheckoutComponent implements OnInit {
       status: 'Pending'
     };
 
-    // 发送到后端更新库存
     this.http.post('http://localhost:5000/api/checkout', orderData).subscribe(
       () => {
-        // 库存更新成功后，发送确认邮件
+
         this.sendEmail(this.cartItems, this.totalPrice);
       },
       (error) => {
@@ -117,7 +116,7 @@ export class CheckoutComponent implements OnInit {
     this.http.post('http://localhost:3000/send-email', emailPayload).subscribe(
       (response) => {
         console.log('Email sent successfully:', response);
-        this.cartService.checkout([]); // 清空购物车
+        this.cartService.checkout([]);
         this.cartItems = [];
         this.totalPrice = 0;
         alert('Order confirmed! A confirmation email has been sent.');
