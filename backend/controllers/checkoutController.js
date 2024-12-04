@@ -45,7 +45,6 @@ exports.createOrder = async (req, res) => {
 
       console.log('Order saved successfully:', savedOrder);
 
-      // 发送邮件
       await sendEmailNotification(email, savedOrder);
 
       res.status(200).json({
