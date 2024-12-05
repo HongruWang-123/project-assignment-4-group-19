@@ -35,7 +35,6 @@
       <select formControlName="paymentMethod">
         <option value="Debit">Debit</option>
         <option value="Credit">Credit</option>
-        <option value="PayPal">PayPal</option>
       </select>
       <div *ngIf="profileForm.get('paymentMethod')?.touched && profileForm.get('paymentMethod')?.invalid">
         <small *ngIf="profileForm.get('paymentMethod')?.errors?.['required']">Payment Method is required.</small>
