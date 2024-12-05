@@ -1,4 +1,4 @@
-/* 美化购物车容器 */
+
 .checkout-container {
   max-width: 600px;
   margin: 30px auto;
@@ -9,7 +9,7 @@
   background-color: #fff;
 }
 
-/* 标题样式 */
+
 .checkout-title {
   font-size: 24px;
   font-weight: bold;
@@ -26,7 +26,7 @@
   border-radius: 5px;
 }
 
-/* 地址输入字段样式 */
+
 .address-input-container {
   display: flex;
   flex-direction: column;
@@ -42,7 +42,7 @@
   width: 100%;
 }
 
-/* 银行卡信息输入字段样式 */
+
 .payment-input-container {
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@
   width: 100%;
 }
 
-/* 购物车项目列表样式 */
+
 .cart-item-list {
   list-style: none;
   padding: 0;
@@ -78,7 +78,7 @@
   border-bottom: none;
 }
 
-/* 购物车项目的描述 */
+
 .cart-item-details {
   display: flex;
   justify-content: space-between;
@@ -94,7 +94,7 @@
   color: #666;
 }
 
-/* 确认按钮样式 */
+
 .confirm-button {
   margin: 10px;
   display: block;
@@ -115,7 +115,7 @@
   background-color: #218838;
 }
 
-/* 响应式设计 */
+
 @media (max-width: 768px) {
   .checkout-container {
     padding: 15px;

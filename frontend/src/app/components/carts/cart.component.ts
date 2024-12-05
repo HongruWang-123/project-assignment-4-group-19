@@ -43,7 +43,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   getCartItems(): void {
     this.cartItems = this.cartService.getCartItems() || [];
-    console.log('Initial Cart Items:', this.cartItems); // 输出初始购物车内容
+    console.log('Initial Cart Items:', this.cartItems);
     this.updateCartView();
     
   }
@@ -79,9 +79,9 @@ export class CartComponent implements OnInit, OnDestroy {
       const updatedItem = {
         ...this.cartItems[index],
         quantity: this.cartItems[index].quantity - 1,
-        productId: { ...this.cartItems[index].productId } // 保留所有属性，包括 price
+        productId: { ...this.cartItems[index].productId }
       };
-      console.log('Updated Item after Decrease:', updatedItem); // 输出更新后的项目
+      console.log('Updated Item after Decrease:', updatedItem);
       this.cartItems[index] = updatedItem;
 
       this.cartService.updateCart(updatedItem);
@@ -100,14 +100,14 @@ export class CartComponent implements OnInit, OnDestroy {
   updateCartView(): void {
     this.calculateTotalPrice();
     this.ngZone.run(() => {
-      this.cdr.detectChanges(); // 强制触发变更检测
+      this.cdr.detectChanges();
     });
   }
 
   calculateTotalPrice(): void {
-    console.log('Cart Items before Calculating Total Price:', this.cartItems); // 输出购物车内容用于检查
+    console.log('Cart Items before Calculating Total Price:', this.cartItems);
     this.totalPrice = this.cartItems.reduce((total, item) => {
-      // 确保每个项目都有正确的价格
+
       const price = item.productId?.price ?? 0;
       console.log(`Calculating price for item ${item.productId?._id}: price=${price}, quantity=${item.quantity}`);
       return total + (price * item.quantity);
@@ -117,7 +117,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   checkout(): void {
     if (this.cartItems.length > 0) {
-      this.router.navigate(['/checkout']); // 跳转到 checkout 页面
+      this.router.navigate(['/checkout']);
     } else {
       alert('Your cart is empty. Please add some items before checking out.');
     }
